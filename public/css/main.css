@@ -1,0 +1,70 @@
+body {
+	padding-top: 50px;
+	padding-bottom: 20px;
+	text-align: center;
+	background: url('../img/background_blur.jpg') no-repeat center center fixed;
+	background-size: cover;
+	-o-background-size: cover;
+}
+
+h2 {
+	margin-bottom: 40px;
+}
+
+form {
+	margin-top: 20px;
+}
+
+.hidden {
+	display: none;
+}
+
+.fulltab {
+	width: 50%;
+}
+
+.card {
+	min-width: 250px;
+	max-width: 550px;
+	padding: 20px;
+	background-color: #F7F7F7;
+	margin: 140px auto 40px;
+	border-radius: 5px;
+	box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.container-main {
+	padding-right: 30px;
+	padding-left: 30px;
+}
+
+.padded-top {
+	padding-top: 30px;
+}
+
+.btn-play {
+	width: 10em;
+	height: 3em;
+}
+
+.alert {
+	max-width: 700px;
+	margin: auto;
+}
+
+.glyphicon {
+	margin-left: 5px;
+}
+
+.dropdown-menu form {
+	padding: 3px 20px;
+	margin-top: 10px;
+}
+
+.dropdown-menu a {
+	padding: 8px 20px !important;
+}
+
+#nav-email {
+	font-weight: bold;
+}
