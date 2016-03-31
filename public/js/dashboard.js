@@ -41,6 +41,11 @@ Dashboard.prototype.logout = function(event) {
 };
 
 Dashboard.prototype.createGame = function(event) {
+	if ($("#room-name").val().length == 0) {
+		$("#room-name").tooltip("show");
+		return false;
+	}
+
 	$.ajax({
 		method: $(this).attr("method"),
 		url: $(this).attr("action"),

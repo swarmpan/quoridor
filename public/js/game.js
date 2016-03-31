@@ -1,6 +1,8 @@
 function Game() {
 	this.gameDiv = $("#game");
 	this.attachListeners();
+	this.gameList = {};
+	this.refreshDeferred = $.Deferred();
 }
 
 Game.prototype.show = function() {
@@ -22,6 +24,10 @@ Game.prototype.slideUp = function(callback) {
 
 Game.prototype.attachListeners = function() {
 	$("#leave-form").submit(this.leave);
+	$("#list-button").click(function(event) {
+		game.refreshGameList();
+		game.refreshDeferred.done(game.displayList.bind(game));
+	});
 };
 
 Game.prototype.leave = function(event) {
@@ -41,4 +47,26 @@ Game.prototype.leave = function(event) {
 	});
 
 	return false;
+};
+
+
+Game.prototype.refreshGameList = function() {
+	$.ajax({
+		method: "get",
+		url: "gameList"
+	})
+	.done(function(data) {
+		if (data.success) {
+			game.gameList = data.list;
+			game.refreshDeferred.resolve();
+		}
+	});
+};
+
+Game.prototype.displayList = function() {
+	$("#gameList").empty();
+	for (index in this.gameList) {
+		var entry = $("<p/>").text(this.gameList[index].name);
+		$("#gameList").append(entry);
+	}
 };

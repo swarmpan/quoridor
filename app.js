@@ -35,11 +35,13 @@ app.use(session({
 // Routes
 app.use('/', require('./routes/index'));
 
-app.use('/create', require('./routes/create')(mongo.models));
-app.use('/signup', require('./routes/signup')(mongo.models));
-app.use('/login', require('./routes/login')(mongo.models));
-app.use('/leave', require('./routes/leave')(mongo.models));
-app.use('/logout', require('./routes/logout'));
+app.use('/create', require('./routes/game/create')(mongo.models));
+app.use('/leave', require('./routes/game/leave')(mongo.models));
+app.use('/gameList', require('./routes/game/list')(mongo.models));
+
+app.use('/signup', require('./routes/user/signup')(mongo.models));
+app.use('/login', require('./routes/user/login')(mongo.models));
+app.use('/logout', require('./routes/user/logout'));
 
 app.use('/isConnected', function(req, res, next) {
 	if (req.session.connected) {
