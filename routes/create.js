@@ -8,13 +8,15 @@ module.exports = function(models) {
 		var pseudo = req.session.pseudo;
 
 	  	var newGame = new models.Game({
+	  		name: req.body.roomName
 	  		player1: req.session.email,
 	  		position1: "top",
 	  		position2: "bottom",
 	  		walls: [],
 	  		wall1: 10,
 	  		wall2: 10,
-	  		turn: 0
+	  		turn: 0,
+	  		waiting: true
 	  	});
 
 	  	newGame.save(function(err) {

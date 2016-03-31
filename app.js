@@ -38,6 +38,7 @@ app.use('/', require('./routes/index'));
 app.use('/create', require('./routes/create')(mongo.models));
 app.use('/signup', require('./routes/signup')(mongo.models));
 app.use('/login', require('./routes/login')(mongo.models));
+app.use('/leave', require('./routes/leave')(mongo.models));
 app.use('/logout', require('./routes/logout'));
 
 app.use('/isConnected', function(req, res, next) {

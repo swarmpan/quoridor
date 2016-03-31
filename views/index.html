@@ -75,8 +75,12 @@
 
 			<div id="dashboard" class="row" style="display: none;">
 				<form id="create-form" method="post" action="create">
+					<div class="form-group">
+						<input type="text" class="form-control" id="room-name" name="roomName" placeholder="Nom de la salle"/>
+					</div>
 					<button type="submit" class="btn btn-primary">Créer partie</button>
 				</form>
+				<h3>OU</h3>
 				<form id="join-form" method="post" action="join">
 					<button type="submit" class="btn btn-primary">Rejoindre partie</button>
 				</form>
@@ -93,10 +97,10 @@
 
 	<script src="js/vendor/jquery-1.11.2.min.js"></script>
 	<script src="js/vendor/bootstrap.min.js"></script>
+	<script src="js/main.js"></script>
 	<script src="js/utils.js"></script>
 	<script src="js/index.js"></script>
 	<script src="js/dashboard.js"></script>
 	<script src="js/game.js"></script>
-	<script src="js/main.js"></script>
 </body>
 </html>

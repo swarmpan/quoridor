@@ -1,7 +1,4 @@
-var self;
-
 function Index() {
-	self = this;
 	this.indexDiv = $("#index");
 	this.pseudo = $("#pseudo");
 	this.password = $("#password");
@@ -67,29 +64,29 @@ Index.prototype.onSubmit = function(event) {
 
 
 Index.prototype.showLoginTab = function() {
-	self.pseudo.hide();
-	self.repassword.hide();
+	index.pseudo.hide();
+	index.repassword.hide();
 	$("#button-signup").hide();
 	$("#button-login").show();
 
 	// Enleve l'affichage de la tooltip sur le mot de passe
-	self.password.unbind();
+	index.password.unbind();
 
 	$("#submit-form").attr("action", "login");
 };
 
 
 Index.prototype.showSignupTab = function() {
-	self.pseudo.show()
+	index.pseudo.show()
 		.focus(function() {
 			$(this).tooltip('show');
 		});
 
-	self.repassword.show();
+	index.repassword.show();
 	$("#button-signup").show();
 	$("#button-login").hide();
 
-	self.password.focus(function() {
+	index.password.focus(function() {
 		$(this).tooltip('show');
 	});
 
