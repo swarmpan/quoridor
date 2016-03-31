@@ -2,7 +2,6 @@ function Game() {
 	this.gameDiv = $("#game");
 	this.attachListeners();
 	this.gameList = {};
-	this.refreshDeferred = $.Deferred();
 }
 
 Game.prototype.show = function() {
@@ -22,11 +21,15 @@ Game.prototype.slideUp = function(callback) {
 	this.gameDiv.slideUp(callback);
 };
 
+var refreshDeferred = $.Deferred();
+
 Game.prototype.attachListeners = function() {
 	$("#leave-form").submit(this.leave);
 	$("#list-button").click(function(event) {
 		game.refreshGameList();
-		game.refreshDeferred.done(game.displayList.bind(game));
+		// Quand le deferred est résolu (par resfreshList)
+		// on appelle displayList
+		refreshDeferred.done(game.displayList.bind(game));
 	});
 };
 
@@ -40,7 +43,7 @@ Game.prototype.leave = function(event) {
 		if (data.success) {
 			game.slideUp(function() {
 				dashboard.slideDown();
-			});;
+			});
 		} else {
 			displayAlert("danger", "Vous n'avez pas pu quitter la partie : " + data.message);
 		}
@@ -58,7 +61,7 @@ Game.prototype.refreshGameList = function() {
 	.done(function(data) {
 		if (data.success) {
 			game.gameList = data.list;
-			game.refreshDeferred.resolve();
+			refreshDeferred.resolve();
 		}
 	});
 };
