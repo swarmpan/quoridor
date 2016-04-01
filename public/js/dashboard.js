@@ -3,12 +3,15 @@ function Dashboard() {
 	this.attachListeners();
 }
 
-
-Dashboard.prototype.slideDown = function(email) {
-	this.dashboardDiv.slideDown();
-
-	$("#nav-login-info").fadeIn();
+Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
+	$("#display-pseudo").text(pseudo);
+};
+
+Dashboard.prototype.slideDown = function() {
+	$("#nav-login-info").fadeIn();
+
+	this.dashboardDiv.slideDown();
 };
 
 
@@ -41,6 +44,7 @@ Dashboard.prototype.logout = function(event) {
 };
 
 Dashboard.prototype.createGame = function(event) {
+	// Il faut spécifier un nom de partie
 	if ($("#room-name").val().length == 0) {
 		$("#room-name").tooltip("show");
 		return false;
@@ -55,8 +59,8 @@ Dashboard.prototype.createGame = function(event) {
 		if (data.success) {
 			console.log(data);
 			dashboard.slideUp();
-			game.slideDown();
 			game.init(data);
+			game.slideDown();
 		}
 	});
 

@@ -34,7 +34,7 @@ Index.prototype.onSubmit = function(event) {
 	// Si le formulaire d'inscription est invalide
 	// on retourne sans envoyer l'ajax
 	if ($(this).attr("action") == "signup" && 
-		! this.signupFormValid()) {
+		! index.signupFormValid()) {
 		return false;
 	}
 
@@ -103,8 +103,9 @@ Index.prototype.onSignupSuccess = function(data) {
 
 
 Index.prototype.onLoginSuccess = function(data) {
+	dashboard.init(data.email, data.pseudo);
 	this.slideUp(function() {
-		dashboard.slideDown(data.email);
+		dashboard.slideDown();
 	});
 };
 

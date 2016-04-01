@@ -1,11 +1,13 @@
 var index;
 var dashboard;
 var game;
+var plateau;
 
 $(document).ready(function() {
 	dashboard = new Dashboard();
 	index = new Index();
 	game = new Game();
+	plateau = new Plateau(9);
 
 	checkConnected();
 });

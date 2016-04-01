@@ -42,10 +42,11 @@
 	</nav>
 
 	<div class="container container-main">
-		<div class="card">
-			<h2>Bienvenue sur Quoridor en ligne !</h2>
+		<div class="card card-fixed">
 
 			<div id="index">
+				<h2>Bienvenue sur Quoridor en ligne !</h2>
+
 				<!-- Tabs -->
 				<ul class="nav nav-tabs">
 					<li class="active fulltab" id="login-tab"><a role="tab" data-toggle="tab">Connexion</a></li>
@@ -74,6 +75,7 @@
 			</div>
 
 			<div id="dashboard" class="row" style="display: none;">
+				<h2>Bienvenue <span id="display-pseudo">Invité</span> !</h2>
 				<form id="create-form" method="post" action="create">
 					<div class="form-group">
 						<input type="text" class="form-control" id="room-name" name="roomName" placeholder="Nom de la salle"
@@ -89,6 +91,7 @@
 			</div>
 
 			<div id="game" style="display: none;">
+				<div id="plateau"></div>
 				<form id="leave-form" method="post" action="leave">
 					<button type="submit" class="btn btn-primary">Quitter partie</button>
 				</form>
@@ -104,5 +107,6 @@
 	<script src="js/index.js"></script>
 	<script src="js/dashboard.js"></script>
 	<script src="js/game.js"></script>
+	<script src="js/board.js"></script>
 </body>
 </html>

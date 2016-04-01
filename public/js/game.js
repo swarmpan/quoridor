@@ -11,6 +11,9 @@ Game.prototype.show = function() {
 Game.prototype.init = function(data) {
 	var p = $("<p/>").text("Vous etes a la position " + data.position);
 	this.gameDiv.append(p);
+	$(".card").removeClass("card-fixed")
+		.addClass("card-adapt");
+	plateau.display();
 };
 
 Game.prototype.slideDown = function() {
@@ -41,6 +44,8 @@ Game.prototype.leave = function(event) {
 	})
 	.done(function(data) {
 		if (data.success) {
+			$(".card").removeClass("card-adapt")
+				.addClass("card-fixed");
 			game.slideUp(function() {
 				dashboard.slideDown();
 			});
