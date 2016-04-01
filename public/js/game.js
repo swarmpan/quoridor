@@ -1,7 +1,6 @@
 function Game() {
 	this.gameDiv = $("#game");
 	this.attachListeners();
-	this.gameList = {};
 }
 
 Game.prototype.show = function() {
@@ -24,16 +23,12 @@ Game.prototype.slideUp = function(callback) {
 	this.gameDiv.slideUp(callback);
 };
 
-var refreshDeferred = $.Deferred();
 
 Game.prototype.attachListeners = function() {
 	$("#leave-form").submit(this.leave);
-	$("#list-button").click(function(event) {
-		game.refreshGameList();
-		// Quand le deferred est résolu (par resfreshList)
-		// on appelle displayList
-		refreshDeferred.done(game.displayList.bind(game));
-	});
+	// $("#list-button").click(function(event) {
+	// 	$("#gameList").slideDown();
+	// });
 };
 
 Game.prototype.leave = function(event) {
@@ -55,26 +50,4 @@ Game.prototype.leave = function(event) {
 	});
 
 	return false;
-};
-
-
-Game.prototype.refreshGameList = function() {
-	$.ajax({
-		method: "get",
-		url: "gameList"
-	})
-	.done(function(data) {
-		if (data.success) {
-			game.gameList = data.list;
-			refreshDeferred.resolve();
-		}
-	});
-};
-
-Game.prototype.displayList = function() {
-	$("#gameList").empty();
-	for (index in this.gameList) {
-		var entry = $("<p/>").text(this.gameList[index].name);
-		$("#gameList").append(entry);
-	}
 };

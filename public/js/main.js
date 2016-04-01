@@ -20,7 +20,8 @@ function checkConnected() {
 	.done(function(data) {
 		if (data.connected) {
 			index.slideUp();
-			dashboard.slideDown(data.email);
+			dashboard.init(data.email, data.pseudo);
+			dashboard.slideDown();
 		}
 	});
 }

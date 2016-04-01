@@ -1,15 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var shortid = require('shortid');
 
 module.exports = function(models) {
 
 	router.post('/', function(req, res, next) {
 		var email = req.session.email;
 		var pseudo = req.session.pseudo;
+		var id = shortid.generate();
 
 	  	var newGame = new models.Game({
+	  		id: id,
 	  		name: req.body.roomName,
-	  		player1: req.session.email,
+	  		player1: req.session.pseudo,
 	  		position1: "top",
 	  		position2: "bottom",
 	  		walls: [],
@@ -26,8 +29,7 @@ module.exports = function(models) {
 	  	console.log("New game created !");
 		res.json({
 			success: true,
-			email: req.session.email,
-			pseudo: req.session.pseudo,
+			id: id,
 			position: "top"
 		});
 	});

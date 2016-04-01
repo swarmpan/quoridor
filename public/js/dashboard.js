@@ -6,6 +6,7 @@ function Dashboard() {
 Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
 	$("#display-pseudo").text(pseudo);
+	this.refreshGameList();
 };
 
 Dashboard.prototype.slideDown = function() {
@@ -65,4 +66,44 @@ Dashboard.prototype.createGame = function(event) {
 	});
 
 	return false;
+};
+
+Dashboard.prototype.refreshGameList = function() {
+	$.ajax({
+		method: "get",
+		url: "gameList"
+	})
+	.done(function(data) {
+		if (data.success) {
+			dashboard.gameList = data.list;
+			dashboard.appendList();
+		}
+	});
+};
+
+Dashboard.prototype.appendList = function() {
+	$("#gameList").empty();
+	console.log(this.gameList);
+	for (jizon in this.gameList) {
+		var entry = $("<a/>")
+			.text(this.gameList[jizon].name)
+			.click(function(event) {
+				$.ajax({
+					method: "post",
+					url: "join",
+					data: {
+						id: dashboard.gameList[jizon].id
+					}
+				})
+				.done(function(data) {
+					if (data.success) {
+						game.init(data);
+						dashboard.slideUp();
+						game.slideDown();
+					}
+				});
+			});
+		$("#gameList").append(entry)
+			.append("<br/>");
+	}
 };
