@@ -70,7 +70,7 @@ function Plateau(taille) {
 }
 
 Plateau.prototype.display = function() {
-    var table = $("#plateau");
+    var table = $("#plateau").empty();
 
     for (var l = 0; l < this.taille; l++) {
         var tr = $("<tr/>");

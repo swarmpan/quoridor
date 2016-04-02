@@ -83,10 +83,20 @@
 					</div>
 					<button type="submit" class="btn btn-primary">Créer partie</button>
 				</form>
-				<h3>OU</h3>
-				<div>
-					<button role="button" id="list-button" class="btn btn-primary">Rejoindre partie</button>
-					<div id="gameList"></div>
+				<hr>
+				<h3>Rejoindre une partie</h3>
+				<div id="gameList">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Nom partie</th>
+								<th>Créateur</th>
+							</tr>
+						</thead>
+						<tbody id="gameTable"></tbody>
+					</table>
+					<p class="error-message" style="display: none;">Désolé ! Aucune partie ouverte</p>
+					<button role="button" id="list-button" class="btn btn-primary">Actualiser liste</button>
 				</div>
 			</div>
 
@@ -107,6 +117,6 @@
 	<script src="js/index.js"></script>
 	<script src="js/dashboard.js"></script>
 	<script src="js/game.js"></script>
-	<script src="js/board.js"></script>
+	<script src="js/plateau.js"></script>
 </body>
 </html>

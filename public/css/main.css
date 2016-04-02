@@ -19,6 +19,10 @@ form {
 	margin-top: 20px;
 }
 
+td {
+	text-align: left;
+}
+
 .hidden {
 	display: none;
 }
@@ -82,4 +86,10 @@ form {
 
 #dashboard {
 	margin: 0 10px;
+}
+
+#gameList {
+	max-height: 300px;
+	overflow: auto;
+	margin-top: 20px;
 }

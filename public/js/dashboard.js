@@ -24,6 +24,7 @@ Dashboard.prototype.slideUp = function(callback) {
 Dashboard.prototype.attachListeners = function() {
 	$("#button-logout").click(this.logout);
 	$("#create-form").submit(this.createGame);
+	$("#list-button").click(this.refreshGameList);
 };
 
 
@@ -68,6 +69,11 @@ Dashboard.prototype.createGame = function(event) {
 	return false;
 };
 
+Dashboard.prototype.displayNoGameMessage = function() {
+	$("#gameList table").hide();
+	$("#gameList .error-message").show();
+};
+
 Dashboard.prototype.refreshGameList = function() {
 	$.ajax({
 		method: "get",
@@ -75,6 +81,10 @@ Dashboard.prototype.refreshGameList = function() {
 	})
 	.done(function(data) {
 		if (data.success) {
+			console.log("Liste partie actualisée !");
+			if (data.list.length == 0)
+				dashboard.displayNoGameMessage();
+
 			dashboard.gameList = data.list;
 			dashboard.appendList();
 		}
@@ -82,28 +92,44 @@ Dashboard.prototype.refreshGameList = function() {
 };
 
 Dashboard.prototype.appendList = function() {
-	$("#gameList").empty();
-	console.log(this.gameList);
-	for (jizon in this.gameList) {
-		var entry = $("<a/>")
-			.text(this.gameList[jizon].name)
+	var table = $("#gameTable").empty();
+
+	for (entry in this.gameList) {
+		var gameName = $('<td/>')
+			.text(this.gameList[entry].name);
+
+		var gameCreator = $("<td/>")
+			.text(this.gameList[entry].player1);
+
+		var joinButton = $('<button class="btn btn-primary"/>')
+			.val(this.gameList[entry].id)
 			.click(function(event) {
-				$.ajax({
-					method: "post",
-					url: "join",
-					data: {
-						id: dashboard.gameList[jizon].id
-					}
-				})
-				.done(function(data) {
-					if (data.success) {
-						game.init(data);
-						dashboard.slideUp();
-						game.slideDown();
-					}
-				});
+				dashboard.onGameClick($(this).val());
 			});
-		$("#gameList").append(entry)
-			.append("<br/>");
+
+		var tr = $("<tr/>")
+			.append(gameName)
+			.append(gameCreator)
+			.append($('<td/>').append(joinButton));
+
+		table.prepend(tr);
 	}
+};
+
+Dashboard.prototype.onGameClick = function(id) {
+	$.ajax({
+		method: "post",
+		url: "join",
+		data: {
+			id: id
+		}
+	})
+	.done(function(data) {
+		if (data.success) {
+			console.log("Joined game " + data.gameData.id);
+			game.init(data.gameData);
+			dashboard.slideUp();
+			game.slideDown();
+		}
+	});
 };
