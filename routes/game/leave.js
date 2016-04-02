@@ -20,6 +20,12 @@ module.exports = function(models) {
 				return console.error(err);
 			}
 
+			if (result == null) {
+				res.json({
+					success: true,
+				});
+			}
+
 			models.Game.findOneAndRemove({ id: result.game },
 				function(err, result) {
 					if (err) {

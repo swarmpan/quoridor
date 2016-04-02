@@ -1,4 +1,7 @@
+var self;
+
 function Dashboard() {
+	self = this;
 	this.dashboardDiv = $("#dashboard");
 	this.attachListeners();
 }
@@ -6,25 +9,25 @@ function Dashboard() {
 Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
 	$("#display-pseudo").text(pseudo);
-	this.refreshGameList();
+	self.refreshGameList();
 };
 
 Dashboard.prototype.slideDown = function() {
 	$("#nav-login-info").fadeIn();
 
-	this.dashboardDiv.slideDown();
+	self.dashboardDiv.slideDown();
 };
 
 
 Dashboard.prototype.slideUp = function(callback) {
-	this.dashboardDiv.slideUp(callback);
+	self.dashboardDiv.slideUp(callback);
 };
 
 
 Dashboard.prototype.attachListeners = function() {
-	$("#button-logout").click(this.logout);
-	$("#create-form").submit(this.createGame);
-	$("#list-button").click(this.refreshGameList);
+	$("#button-logout").click(self.logout);
+	$("#create-form").submit(self.createGame);
+	$("#list-button").click(self.refreshGameList);
 };
 
 
@@ -39,7 +42,7 @@ Dashboard.prototype.logout = function(event) {
 			$(".card").removeClass("card-adapt")
 				.addClass("card-fixed");
 			game.slideUp();
-			dashboard.slideUp(function() {
+			self.slideUp(function() {
 				index.slideDown();
 			});
 		}
@@ -62,7 +65,7 @@ Dashboard.prototype.createGame = function(event) {
 	})
 	.done(function(data) {
 		if (data.success) {
-			dashboard.slideUp();
+			self.slideUp();
 			game.init(data);
 			game.slideDown();
 		}
@@ -76,6 +79,11 @@ Dashboard.prototype.displayNoGameMessage = function() {
 	$("#gameList .error-message").show();
 };
 
+Dashboard.prototype.hideNoGameMessage = function() {
+	$("#gameList table").show();
+	$("#gameList .error-message").hide();
+};
+
 Dashboard.prototype.refreshGameList = function() {
 	$.ajax({
 		method: "get",
@@ -84,11 +92,12 @@ Dashboard.prototype.refreshGameList = function() {
 	.done(function(data) {
 		if (data.success) {
 			console.log("Liste partie actualisée ! Il y a ", data.list);
-			if (data.list.length == 0)
-				dashboard.displayNoGameMessage();
-
-			dashboard.gameList = data.list;
-			dashboard.appendList();
+			if (data.list.length > 0) {
+				self.hideNoGameMessage();
+				self.gameList = data.list;
+				self.appendList();
+			} else
+				self.displayNoGameMessage();
 		}
 	});
 };
@@ -103,10 +112,10 @@ Dashboard.prototype.appendList = function() {
 		var gameCreator = $("<td/>")
 			.text(this.gameList[entry].player1);
 
-		var joinButton = $('<button class="btn btn-primary"/>')
+		var joinButton = $('<button class="btn btn-primary glyphicon glyphicon-log-in"/>')
 			.val(this.gameList[entry].id)
 			.click(function(event) {
-				dashboard.onGameClick($(this).val());
+				self.onGameClick($(this).val());
 			});
 
 		var tr = $("<tr/>")
@@ -130,7 +139,7 @@ Dashboard.prototype.onGameClick = function(id) {
 		if (data.success) {
 			console.log("Joined game ", data);
 			game.init(data);
-			dashboard.slideUp();
+			self.slideUp();
 			game.slideDown();
 		}
 	});

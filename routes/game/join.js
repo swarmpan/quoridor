@@ -18,11 +18,18 @@ module.exports = function(models) {
 					});
 					return;
 				}
+				if (result == null) {
+					res.json({
+						success: false,
+						message: "La partie n'existe plus"
+					});
+					return;
+				}
 
 			  	// Set la partie associée a l'utilisateur
 			  	models.User.findOneAndUpdate({ email: req.session.email },
 			  	{
-			  		game: id
+			  		game: req.body.id
 			  	},
 			 	function(err, result) {
 			 		if (err) return console.err.bind(err);
