@@ -126,7 +126,7 @@ Dashboard.prototype.onGameClick = function(id) {
 	})
 	.done(function(data) {
 		if (data.success) {
-			console.log("Joined game " + data.gameData.id);
+			console.log("Joined game ", data);
 			game.init(data.gameData);
 			dashboard.slideUp();
 			game.slideDown();

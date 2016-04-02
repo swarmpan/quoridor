@@ -18,11 +18,13 @@ module.exports = function(models) {
 					});
 					return;
 				}
-				
+
 				console.log("Result: ", result);
 				res.json({
 					success: true,
-					gameData: result
+					gameData: result,
+					position: result.position2,
+					walls: result.wall2
 				});
 			});
 	});
