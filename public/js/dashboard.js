@@ -1,7 +1,4 @@
-var self;
-
 function Dashboard() {
-	self = this;
 	this.dashboardDiv = $("#dashboard");
 	this.attachListeners();
 }
@@ -9,25 +6,25 @@ function Dashboard() {
 Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
 	$("#display-pseudo").text(pseudo);
-	self.refreshGameList();
+	dashboard.refreshGameList();
 };
 
 Dashboard.prototype.slideDown = function() {
 	$("#nav-login-info").fadeIn();
 
-	self.dashboardDiv.slideDown();
+	dashboard.dashboardDiv.slideDown();
 };
 
 
 Dashboard.prototype.slideUp = function(callback) {
-	self.dashboardDiv.slideUp(callback);
+	dashboard.dashboardDiv.slideUp(callback);
 };
 
 
 Dashboard.prototype.attachListeners = function() {
-	$("#button-logout").click(self.logout);
-	$("#create-form").submit(self.createGame);
-	$("#list-button").click(self.refreshGameList);
+	$("#button-logout").click(dashboard.logout);
+	$("#create-form").submit(dashboard.createGame);
+	$("#list-button").click(dashboard.refreshGameList);
 };
 
 
@@ -42,7 +39,7 @@ Dashboard.prototype.logout = function(event) {
 			$(".card").removeClass("card-adapt")
 				.addClass("card-fixed");
 			game.slideUp();
-			self.slideUp(function() {
+			dashboard.slideUp(function() {
 				index.slideDown();
 			});
 		}
@@ -65,7 +62,7 @@ Dashboard.prototype.createGame = function(event) {
 	})
 	.done(function(data) {
 		if (data.success) {
-			self.slideUp();
+			dashboard.slideUp();
 			game.init(data);
 			game.slideDown();
 		}
@@ -93,11 +90,11 @@ Dashboard.prototype.refreshGameList = function() {
 		if (data.success) {
 			console.log("Liste partie actualisée ! Il y a ", data.list);
 			if (data.list.length > 0) {
-				self.hideNoGameMessage();
-				self.gameList = data.list;
-				self.appendList();
+				dashboard.hideNoGameMessage();
+				dashboard.gameList = data.list;
+				dashboard.appendList();
 			} else
-				self.displayNoGameMessage();
+				dashboard.displayNoGameMessage();
 		}
 	});
 };
@@ -115,7 +112,7 @@ Dashboard.prototype.appendList = function() {
 		var joinButton = $('<button class="btn btn-primary glyphicon glyphicon-log-in"/>')
 			.val(this.gameList[entry].id)
 			.click(function(event) {
-				self.onGameClick($(this).val());
+				dashboard.onGameClick($(this).val());
 			});
 
 		var tr = $("<tr/>")
@@ -139,7 +136,7 @@ Dashboard.prototype.onGameClick = function(id) {
 		if (data.success) {
 			console.log("Joined game ", data);
 			game.init(data);
-			self.slideUp();
+			dashboard.slideUp();
 			game.slideDown();
 		}
 	});
