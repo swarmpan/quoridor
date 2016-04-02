@@ -19,6 +19,15 @@ module.exports = function(models) {
 					return;
 				}
 
+			  	// Set la partie associée a l'utilisateur
+			  	models.User.findOneAndUpdate({ email: req.session.email },
+			  	{
+			  		game: id
+			  	},
+			 	function(err, result) {
+			 		if (err) return console.err.bind(err);
+			 	});
+
 				console.log("Result: ", result);
 				res.json({
 					success: true,
@@ -26,7 +35,8 @@ module.exports = function(models) {
 					position: result.position2,
 					walls: result.wall2
 				});
-			});
+			}
+		);
 	});
 
 	return router;

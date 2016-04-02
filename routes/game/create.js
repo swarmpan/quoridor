@@ -26,6 +26,15 @@ module.exports = function(models) {
 	  		if (err) return console.error(err);
 	  	});
 
+	  	// Set la partie associée a l'utilisateur
+	  	models.User.findOneAndUpdate({ email: email },
+	  	{
+	  		game: id
+	  	},
+	 	function(err, result) {
+	 		if (err) return console.err.bind(err);
+	 	});
+
 	  	console.log("New game created !");
 		res.json({
 			success: true,

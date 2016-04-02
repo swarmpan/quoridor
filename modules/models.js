@@ -17,7 +17,8 @@ var gameSchema = new mongoose.Schema({
 var userSchema = new mongoose.Schema({
 	email: String,
 	pseudo: String,
-	password: String
+	password: String,
+	game: String
 });
 
 module.exports = {

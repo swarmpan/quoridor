@@ -62,7 +62,6 @@ Dashboard.prototype.createGame = function(event) {
 	})
 	.done(function(data) {
 		if (data.success) {
-			console.log(data);
 			dashboard.slideUp();
 			game.init(data);
 			game.slideDown();
