@@ -36,6 +36,9 @@ Dashboard.prototype.logout = function(event) {
 	.done(function(data) {
 		if(data.success) {
 			$("#nav-login-info").fadeOut();
+			$(".card").removeClass("card-adapt")
+				.addClass("card-fixed");
+			game.slideUp();
 			dashboard.slideUp(function() {
 				index.slideDown();
 			});
@@ -81,7 +84,7 @@ Dashboard.prototype.refreshGameList = function() {
 	})
 	.done(function(data) {
 		if (data.success) {
-			console.log("Liste partie actualisée !");
+			console.log("Liste partie actualisée ! Il y a ", data.list);
 			if (data.list.length == 0)
 				dashboard.displayNoGameMessage();
 
@@ -127,7 +130,7 @@ Dashboard.prototype.onGameClick = function(id) {
 	.done(function(data) {
 		if (data.success) {
 			console.log("Joined game ", data);
-			game.init(data.gameData);
+			game.init(data);
 			dashboard.slideUp();
 			game.slideDown();
 		}

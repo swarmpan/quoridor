@@ -8,8 +8,7 @@ Game.prototype.show = function() {
 };
 
 Game.prototype.init = function(data) {
-	var p = $("<p/>").text("Vous etes a la position " + data.position);
-	this.gameDiv.append(p);
+	console.log("Position : ", data.position);
 	$(".card").removeClass("card-fixed")
 		.addClass("card-adapt");
 	plateau.display();

@@ -29,8 +29,9 @@ module.exports = function(models) {
 	  	console.log("New game created !");
 		res.json({
 			success: true,
-			id: id,
-			position: "top"
+			gameData: newGame,
+			position: newGame.position1,
+			walls: newGame.wall1
 		});
 	});
 
