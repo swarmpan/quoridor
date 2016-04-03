@@ -6,25 +6,25 @@ function Dashboard() {
 Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
 	$("#display-pseudo").text(pseudo);
-	dashboard.refreshGameList();
+	this.refreshGameList();
 };
 
 Dashboard.prototype.slideDown = function() {
 	$("#nav-login-info").fadeIn();
 
-	dashboard.dashboardDiv.slideDown();
+	this.dashboardDiv.slideDown();
 };
 
 
 Dashboard.prototype.slideUp = function(callback) {
-	dashboard.dashboardDiv.slideUp(callback);
+	this.dashboardDiv.slideUp(callback);
 };
 
 
 Dashboard.prototype.attachListeners = function() {
-	$("#button-logout").click(dashboard.logout);
-	$("#create-form").submit(dashboard.createGame);
-	$("#list-button").click(dashboard.refreshGameList);
+	$("#button-logout").click(this.logout);
+	$("#create-form").submit(this.createGame);
+	$("#list-button").click(this.refreshGameList);
 };
 
 
