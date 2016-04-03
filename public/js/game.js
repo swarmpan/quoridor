@@ -12,6 +12,8 @@ Game.prototype.init = function(data) {
 	this.id = data.gameData.id;
 	$(".card").removeClass("card-fixed")
 		.addClass("card-adapt");
+		
+	plateau = new Plateau(9);
 	plateau.display();
 };
 

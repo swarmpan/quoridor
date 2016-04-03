@@ -32,7 +32,7 @@ module.exports = function(models) {
 	  		game: id
 	  	},
 	 	function(err, result) {
-	 		if (err) return console.err.bind(err);
+	 		if (err) return console.error(err);
 	 	});
 
 	  	console.log("New game created !");
