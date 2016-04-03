@@ -6,12 +6,11 @@ function Dashboard() {
 Dashboard.prototype.init = function(email, pseudo) {
 	$("#nav-email").text(email);
 	$("#display-pseudo").text(pseudo);
+	$("#nav-login-info").fadeIn();
 	this.refreshGameList();
 };
 
 Dashboard.prototype.slideDown = function() {
-	$("#nav-login-info").fadeIn();
-
 	this.dashboardDiv.slideDown();
 };
 

@@ -18,20 +18,15 @@ Index.prototype.slideDown = function() {
 };
 
 
-Index.prototype.hide = function(callback) {
-	this.indexDiv.hide(callback);
-};
-
-
 Index.prototype.attachListeners = function() {
-	this.form.submit(this.onSubmit);
+	this.form.submit(this.login);
 
 	$("#login-tab").on("shown.bs.tab", this.showLoginTab);
 	$("#signup-tab").on("shown.bs.tab", this.showSignupTab);
 };
 
 
-Index.prototype.onSubmit = function(event) {
+Index.prototype.login = function(event) {
 	// Si le formulaire d'inscription est invalide
 	// on retourne sans envoyer l'ajax
 	if ($(this).attr("action") == "signup" && 
@@ -39,6 +34,7 @@ Index.prototype.onSubmit = function(event) {
 		return false;
 	}
 
+	// Empeche le formulaire d'être envoyé plus d'une fois
 	disableChildButtons(index.form, true);
 
 	$.ajax({
@@ -62,6 +58,7 @@ Index.prototype.onSubmit = function(event) {
 		}
 	})
 	.always(function() {
+		// Après l'appel ajax on réactive le formulaire
 		disableChildButtons(index.form, false);
 	});
 
