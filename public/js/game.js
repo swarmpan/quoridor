@@ -54,7 +54,7 @@ Game.prototype.leave = function(event) {
 		}
 	})
 	.always(function() {
-		disableChildButtons($("#leave-form"), true);
+		disableChildButtons($("#leave-form"), false);
 	});
 
 	return false;

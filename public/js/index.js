@@ -78,7 +78,7 @@ Index.prototype.showLoginTab = function() {
 	// Enleve l'affichage de la tooltip sur le mot de passe
 	index.password.unbind();
 
-	this.form.attr("action", "login");
+	index.form.attr("action", "login");
 };
 
 
@@ -96,7 +96,7 @@ Index.prototype.showSignupTab = function() {
 		$(this).tooltip('show');
 	});
 
-	this.form.attr("action", "signup");
+	index.form.attr("action", "signup");
 };
 
 
