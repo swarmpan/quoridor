@@ -34,3 +34,12 @@ function isFormSignupValid(pseudo, password, repassword) {
 	}
 	return true;
 }
+
+function disableButton(button, bool) {
+	button.prop("disabled", bool);
+}
+
+function disableChildButtons(element, bool) {
+	element.find("button")
+		.prop("disabled", bool);
+}

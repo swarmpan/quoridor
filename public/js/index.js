@@ -1,4 +1,5 @@
 function Index() {
+	this.form = $("#submit-form");
 	this.indexDiv = $("#index");
 	this.pseudo = $("#pseudo");
 	this.password = $("#password");
@@ -23,7 +24,7 @@ Index.prototype.hide = function(callback) {
 
 
 Index.prototype.attachListeners = function() {
-	$("#submit-form").submit(this.onSubmit);
+	this.form.submit(this.onSubmit);
 
 	$("#login-tab").on("shown.bs.tab", this.showLoginTab);
 	$("#signup-tab").on("shown.bs.tab", this.showSignupTab);
@@ -37,6 +38,8 @@ Index.prototype.onSubmit = function(event) {
 		! index.signupFormValid()) {
 		return false;
 	}
+
+	disableChildButtons(index.form, true);
 
 	$.ajax({
 		method: $(this).attr("method"),
@@ -57,6 +60,9 @@ Index.prototype.onSubmit = function(event) {
 		else {
 			displayAlert("danger", data.message);
 		}
+	})
+	.always(function() {
+		disableChildButtons(index.form, false);
 	});
 
 	return false;
@@ -72,7 +78,7 @@ Index.prototype.showLoginTab = function() {
 	// Enleve l'affichage de la tooltip sur le mot de passe
 	index.password.unbind();
 
-	$("#submit-form").attr("action", "login");
+	this.form.attr("action", "login");
 };
 
 
@@ -90,7 +96,7 @@ Index.prototype.showSignupTab = function() {
 		$(this).tooltip('show');
 	});
 
-	$("#submit-form").attr("action", "signup");
+	this.form.attr("action", "signup");
 };
 
 

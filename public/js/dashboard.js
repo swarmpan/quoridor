@@ -82,6 +82,8 @@ Dashboard.prototype.hideNoGameMessage = function() {
 };
 
 Dashboard.prototype.refreshGameList = function() {
+	$("#list-button").prop("disabled", true);
+
 	$.ajax({
 		method: "get",
 		url: "gameList"
@@ -96,7 +98,10 @@ Dashboard.prototype.refreshGameList = function() {
 			} else
 				dashboard.displayNoGameMessage();
 		}
-	});
+	})
+	.always(function() {
+		$("#list-button").prop("disabled", false);
+	})
 };
 
 Dashboard.prototype.appendList = function() {
